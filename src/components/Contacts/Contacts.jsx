@@ -5,30 +5,19 @@ import css from 'components/Contacts/Contacts.module.css';
 
 const Contacts = ()=> {
   const dispatch = useDispatch()
-  const { name, number, id} = useSelector((state)=> state.contacts)
-
-   const handleChange = (e) =>{
-    // dispatch(addContact(e.target.name, e.target.number))
+  const {contacts} = useSelector((state)=> state.contacts)
+  
+  const handleChange = (e) =>{
+    const valueName = e.currentTarget.value
+        if(contacts.find(contact=> contact.name === valueName)){
+         return  alert(`This name ${valueName} already exists!`); 
+        } 
   } 
-  // const handleChange = event => {
-  //      const {name, value}=event.target;
-  //     switch(name){
-  //       case 'name':
-  //         setName(value);
-  //         break;
-  
-  //       case 'number':
-  //         setNumber(value);
-  //         break;
-  
-  //         default:
-  //           return;
-  //   }
-  // }
+
     const handleSubmit = e => {
         e.preventDefault(); 
       const form = e.currentTarget 
-      dispatch(addContact({id, name:form.elements.name.value, number:form.elements.number.value }))
+      dispatch(addContact({ name:form.elements.name.value, number:form.elements.number.value }))
       form.reset()
   }
 
@@ -42,11 +31,11 @@ const Contacts = ()=> {
               className={css.formInput}
               name="name"
               type="text"
-              // title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               required
               onChange={handleChange}
-              value={name}
+              // value={name}
             />
           </div>
           <div>
@@ -57,11 +46,11 @@ const Contacts = ()=> {
               className={css.formInput}
               type="tel"
               name="number"
-              // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
               onChange={handleChange}
-              value={number}
+              // value={number}
             />
           </div>
           <button className={css.btn} type="submit">
