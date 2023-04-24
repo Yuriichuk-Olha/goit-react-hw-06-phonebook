@@ -7,8 +7,9 @@ const Filter = () =>{
     const dispatch=useDispatch()
 
     const changeFilter = e =>{
-        const form = e.target.value 
-        dispatch(setFilter({name:form}))
+        // const form = e.target.value 
+        dispatch(setFilter(e.target.value))
+      
 
     };
     return(
